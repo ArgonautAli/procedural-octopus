@@ -53,7 +53,6 @@ target_position = Vector2(0, 20)
 collide_with_areas = true
 
 [node name="FrontCheck" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(68, 0)
 target_position = Vector2(0, 100)
 collide_with_areas = true
@@ -64,7 +63,17 @@ target_position = Vector2(0, 100)
 collide_with_areas = true
 
 [node name="FrontMidCheck" type="RayCast2D" parent="."]
-target_position = Vector2(100, 0)
+target_position = Vector2(50, 0)
+collide_with_areas = true
+
+[node name="FrontUpCheck" type="RayCast2D" parent="."]
+position = Vector2(48, 0)
+target_position = Vector2(0, -10)
+collide_with_areas = true
+
+[node name="BodyUpCheck" type="RayCast2D" parent="."]
+position = Vector2(-8, 0)
+target_position = Vector2(0, -10)
 collide_with_areas = true
 
 [node name="BackMidCheck" type="RayCast2D" parent="."]

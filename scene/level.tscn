@@ -15,7 +15,7 @@ gradient = SubResource("Gradient_w861w")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_awb1t")
-position = Vector2(667, 280)
+position = Vector2(702.408, 280)
 scale = Vector2(-272.044, 140.213)
 texture = SubResource("GradientTexture2D_qspa1")
 
@@ -23,7 +23,7 @@ texture = SubResource("GradientTexture2D_qspa1")
 position = Vector2(248, 263)
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_5iios")]
-position = Vector2(42, 279)
+position = Vector2(77.4082, 279)
 
 [node name="Node2D" parent="." instance=ExtResource("2_x8glg")]
 position = Vector2(253, 371)
