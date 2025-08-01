@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5etibmrhfa5v"]
+
+[ext_resource type="PackedScene" uid="uid://c7py3dl6ucoyu" path="res://scene/spider.tscn" id="1_5iios"]
+[ext_resource type="PackedScene" uid="uid://dk64w3t50hdlx" path="res://scene/box.tscn" id="2_x8glg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_awb1t"]
+
+[sub_resource type="Gradient" id="Gradient_w861w"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qspa1"]
+gradient = SubResource("Gradient_w861w")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_awb1t")
+position = Vector2(667, 280)
+scale = Vector2(-272.044, 140.213)
+texture = SubResource("GradientTexture2D_qspa1")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(248, 263)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_5iios")]
+position = Vector2(42, 279)
+
+[node name="Node2D" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(253, 371)
+scale = Vector2(22.52, 1)
+
+[node name="Node2D4" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(709, 370)
+scale = Vector2(22.52, 1)
+
+[node name="Node2D6" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(1129, 399)
+scale = Vector2(22.52, 1)
+
+[node name="Node2D3" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(768, 352)
+scale = Vector2(4.92, 1)
+
+[node name="Node2D5" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(372, 320)
+scale = Vector2(4.92, 1)

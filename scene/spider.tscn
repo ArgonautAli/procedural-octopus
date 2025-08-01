@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7py3dl6ucoyu"]
+
+[ext_resource type="Texture2D" uid="uid://c1nm3akh2g57r" path="res://sprite/body.png" id="1_ddeyq"]
+[ext_resource type="Script" path="res://script/spider.gd" id="1_eoy75"]
+[ext_resource type="PackedScene" uid="uid://dsq6f8cbcyrxs" path="res://scene/leg.tscn" id="2_a61hi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4lwcu"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_eoy75")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4lwcu")
+
+[node name="FrontLegs" type="Node2D" parent="."]
+position = Vector2(-3, 0)
+
+[node name="Leg" parent="FrontLegs" instance=ExtResource("2_a61hi")]
+
+[node name="Leg2" parent="FrontLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(4, 0)
+
+[node name="Leg3" parent="FrontLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(8, 0)
+
+[node name="Leg4" parent="FrontLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(12, 0)
+
+[node name="BackLegs" type="Node2D" parent="."]
+position = Vector2(-10, 0)
+
+[node name="Leg" parent="BackLegs" instance=ExtResource("2_a61hi")]
+flipped = false
+
+[node name="Leg2" parent="BackLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(4, 0)
+flipped = false
+
+[node name="Leg3" parent="BackLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(8, 0)
+flipped = false
+
+[node name="Leg4" parent="BackLegs" instance=ExtResource("2_a61hi")]
+position = Vector2(12, 0)
+flipped = false
+
+[node name="LowMidCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, 40)
+collide_with_areas = true
+
+[node name="HighMidCheck" type="RayCast2D" parent="."]
+target_position = Vector2(0, 20)
+collide_with_areas = true
+
+[node name="FrontCheck" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(68, 0)
+target_position = Vector2(0, 100)
+collide_with_areas = true
+
+[node name="BackCheck" type="RayCast2D" parent="."]
+position = Vector2(-10, 0)
+target_position = Vector2(0, 100)
+collide_with_areas = true
+
+[node name="FrontMidCheck" type="RayCast2D" parent="."]
+target_position = Vector2(100, 0)
+collide_with_areas = true
+
+[node name="BackMidCheck" type="RayCast2D" parent="."]
+target_position = Vector2(-40, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ddeyq")
