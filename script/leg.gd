@@ -87,8 +87,6 @@ func SSS_calc(side_a,side_b,side_c):
 		angle_b = -angle_b
 		angle_c = -angle_c
 	return {"A": angle_a, "B": angle_b, "C": angle_c}
-	
-	
 
 
 func law_of_cosine(a,b,c):

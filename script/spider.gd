@@ -13,6 +13,8 @@ extends CharacterBody2D
 @onready var front_up_check: RayCast2D = $FrontUpCheck
 @onready var body_up_check: RayCast2D = $BodyUpCheck
 
+@onready var front_crouch_check: RayCast2D = $FrontCrouchCheck
+
 var front_legs = []
 var back_legs = []
 
@@ -41,20 +43,16 @@ func _ready():
 	base_y = global_position.y
 	front_legs = front_leg_node.get_children()
 	back_legs = back_leg_node.get_children()
-	front_check.force_raycast_update()
-	back_check.force_raycast_update()
-	front_mid_check.force_raycast_update()
-	back_mid_check.force_raycast_update()
+	front_crouch_check.force_raycast_update()
 	for i in range(8):
 		step()
 
 func _draw() -> void:
-	draw_line(Vector2.ZERO, front_mid_check.target_position, Color.RED)
-	draw_line(Vector2.ZERO, back_mid_check.target_position, Color.BLUE)
-	draw_line(Vector2.ZERO, front_up_check.target_position, Color.BLUE)
-	draw_line(Vector2.ZERO, body_up_check.target_position, Color.RED)
-	
-	
+	#draw_line(Vector2.ZERO, front_mid_check.target_position, Color.RED)
+	#draw_line(Vector2.ZERO, back_mid_check.target_position, Color.BLUE)
+	#draw_line(Vector2.ZERO, front_up_check.target_position, Color.BLUE)
+	#draw_line(Vector2.ZERO, body_up_check.target_position, Color.RED)
+	draw_line(Vector2.ZERO, front_crouch_check.target_position, Color.RED)
 
 func _physics_process(delta):
 	var mouse_pos = get_global_mouse_position()
@@ -73,13 +71,16 @@ func _physics_process(delta):
 	var moving_forward = dir.x >= 0.0
 	var obstacle_ahead = front_mid_check.is_colliding()  || body_up_check.is_colliding() || front_up_check.is_colliding() if moving_forward else back_mid_check.is_colliding()
 	var ledge_ahead    = !front_mid_check.is_colliding() if moving_forward else !back_mid_check.is_colliding()
+	var cant_crouch = front_crouch_check.is_colliding()
+	print("cant crouch: ", cant_crouch)
 	if obstacle_ahead:
 		stay_down = true
 		target_height = duck_height
-		print("ducking: ", target_height)
 	elif ledge_ahead:
 		target_height = rise_height
 		stay_down = false
+	elif cant_crouch:
+		jump()
 	else:
 		target_height = base_height
 	current_height     = lerp(current_height, target_height, delta * smooth_height)
@@ -115,3 +116,6 @@ func step():
 	leg.step(target)
 
 # test
+
+func jump():
+	print("jump!")

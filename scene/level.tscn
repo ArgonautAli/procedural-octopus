@@ -44,3 +44,7 @@ scale = Vector2(4.92, 1)
 [node name="Node2D5" parent="." instance=ExtResource("2_x8glg")]
 position = Vector2(372, 320)
 scale = Vector2(4.92, 1)
+
+[node name="Node2D7" parent="." instance=ExtResource("2_x8glg")]
+position = Vector2(535, 337)
+scale = Vector2(4.92, 1)
