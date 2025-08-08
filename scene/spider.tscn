@@ -67,7 +67,7 @@ target_position = Vector2(50, 0)
 collide_with_areas = true
 
 [node name="FrontCrouchCheck" type="RayCast2D" parent="."]
-position = Vector2(0, 64)
+position = Vector2(0, 27)
 target_position = Vector2(50, 0)
 collide_with_areas = true
 

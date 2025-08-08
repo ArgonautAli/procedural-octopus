@@ -18,10 +18,12 @@ extends CharacterBody2D
 var front_legs = []
 var back_legs = []
 
-
 @export var x_speed = 25
 @export var y_speed = 20
 @export var step_rate = 0.3
+
+@export var jump_force = 400
+@export var gravity = 1000
 
 var time_since_last_step = 0
 var cur_f_leg = 0
@@ -36,13 +38,16 @@ var use_front = false
 var target_height := 0.0
 var current_height := 0.0
 var base_y := 0.0
-
 var stay_down := false
 
 func _ready():
 	base_y = global_position.y
 	front_legs = front_leg_node.get_children()
 	back_legs = back_leg_node.get_children()
+	front_check.force_raycast_update()
+	back_check.force_raycast_update()
+	front_mid_check.force_raycast_update()
+	back_mid_check.force_raycast_update()
 	front_crouch_check.force_raycast_update()
 	for i in range(8):
 		step()
@@ -52,12 +57,15 @@ func _draw() -> void:
 	#draw_line(Vector2.ZERO, back_mid_check.target_position, Color.BLUE)
 	#draw_line(Vector2.ZERO, front_up_check.target_position, Color.BLUE)
 	#draw_line(Vector2.ZERO, body_up_check.target_position, Color.RED)
-	draw_line(Vector2.ZERO, front_crouch_check.target_position, Color.RED)
+	draw_line(
+	front_crouch_check.global_position, front_crouch_check.to_global(front_crouch_check.target_position), Color.RED)
 
 func _physics_process(delta):
 	var mouse_pos = get_global_mouse_position()
 	var dir = (mouse_pos - global_position).normalized()
 	var move_vec = dir * x_speed
+	
+	velocity.y += gravity * delta
 
 	# --- Anchoring the body in world space (original logic) ---
 	if high_mid_check.is_colliding():
@@ -65,8 +73,8 @@ func _physics_process(delta):
 	elif !low_mid_check.is_colliding():
 		move_vec.y = y_speed   # move downward to reach ground
 		
-	if stay_down == true:
-		current_height = lerp(current_height, duck_height, delta * smooth_height)
+	#if stay_down == true:
+		#current_height = lerp(current_height, duck_height, delta * smooth_height)
 	# --- Bracing the pose based on what's ahead (new logic) ---
 	var moving_forward = dir.x >= 0.0
 	var obstacle_ahead = front_mid_check.is_colliding()  || body_up_check.is_colliding() || front_up_check.is_colliding() if moving_forward else back_mid_check.is_colliding()
@@ -81,9 +89,10 @@ func _physics_process(delta):
 		stay_down = false
 	elif cant_crouch:
 		jump()
+		velocity.y = -jump_force
 	else:
 		target_height = base_height
-	current_height     = lerp(current_height, target_height, delta * smooth_height)
+	current_height= lerp(current_height, target_height, delta * smooth_height)
 	global_position.y  = base_y + current_height
 	move_and_collide(move_vec * delta)
 
@@ -119,3 +128,4 @@ func step():
 
 func jump():
 	print("jump!")
+	
